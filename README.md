@@ -56,7 +56,6 @@ This project was created with the intention to provide users a small companion t
 This project is licensed under the MIT License — feel free to use and adapt it.
 
 
-
-SCREENSHOT
-
-<img width="752" height="938" alt="image" src="https://github.com/user-attachments/assets/61c2c0da-dbb3-440a-8db1-815427e5c325" />
+👩‍💻 Author
+Made with love by Angela 💙
+Angelas7
