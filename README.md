@@ -45,7 +45,8 @@ A simple and interactive **C++ command-line app** designed to assist users in tr
 <img width="1100" height="1013" alt="image" src="https://github.com/user-attachments/assets/e91d470a-1ba2-433c-8a20-2bdee8433e83" />
 
    🤝 Contributors
-Angela S
+Angela 
+Contributions are welcome! Open a pull request or fork the repo to improve this further.
 
 
 ❤️ Acknowledgements
