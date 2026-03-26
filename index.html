@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serene Mind — Mental Health Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8aaa8a;
+    --sage-light: #b5cdb5;
+    --sage-pale: #e8f0e8;
+    --blush: #e8c9c0;
+    --lavender: #c5bcd8;
+    --sky: #b8d4e8;
+    --cream: #faf6f0;
+    --warm-white: #fdfaf6;
+    --text: #3d3530;
+    --text-soft: #7a6f68;
+    --text-lighter: #a89e98;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--sage);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease, opacity 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--sage-light);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.25s ease, width 0.2s, height 0.2s;
+  }
+
+  /* Floating particles */
+  .particle-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatUp var(--dur) var(--delay) infinite ease-in-out;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(20px);
+    background: rgba(253,250,246,0.85);
+    border-bottom: 1px solid rgba(138,170,138,0.15);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--sage);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--sage);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--sage); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    background: radial-gradient(ellipse 80% 70% at 50% 30%, rgba(197,188,216,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(184,212,232,0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 60% at 20% 70%, rgba(232,201,192,0.15) 0%, transparent 70%),
+                var(--warm-white);
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text);
+    max-width: 900px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.7;
+    margin-top: 1.5rem;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    margin-top: 2.5rem;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+  .btn-primary {
+    padding: 0.9rem 2.5rem;
+    background: var(--sage);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: #7a9a7a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(138,170,138,0.35);
+  }
+  .btn-outline {
+    padding: 0.9rem 2.5rem;
+    background: transparent;
+    color: var(--text-soft);
+    border: 1.5px solid rgba(138,170,138,0.4);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover {
+    border-color: var(--sage);
+    color: var(--sage);
+    transform: translateY(-2px);
+  }
+
+  /* Breathing circle */
+  .breath-widget {
+    margin-top: 3rem;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .breath-circle-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .breath-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138,170,138,0.5), rgba(197,188,216,0.3));
+    border: 2px solid rgba(138,170,138,0.4);
+    cursor: none;
+    animation: breathe 4s infinite ease-in-out;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .breath-circle::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(138,170,138,0.2);
+    animation: breathe 4s infinite ease-in-out;
+    animation-delay: 0.2s;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.35); opacity: 1; }
+  }
+  .breath-text {
+    font-size: 0.75rem;
+    color: var(--text-lighter);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  #breathLabel {
+    font-size: 0.7rem;
+    color: var(--sage);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeUp 1s 1.2s ease both;
+  }
+  .scroll-hint span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-lighter); }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--sage-light), transparent);
+    animation: scrollDrop 1.5s infinite ease-in-out;
+  }
+  @keyframes scrollDrop {
+    0%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  }
+
+  /* SECTION BASE */
+  section { position: relative; z-index: 1; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .section-title em { font-style: italic; color: var(--sage); }
+
+  /* MOOD CHECK */
+  .mood-section {
+    padding: 7rem 0;
+    background: linear-gradient(135deg, rgba(197,188,216,0.1) 0%, rgba(184,212,232,0.1) 100%);
+  }
+  .mood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 1rem; }
+  .mood-intro p {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-top: 1.5rem;
+    max-width: 440px;
+  }
+  .mood-cards {
+    display: flex; flex-direction: column; gap: 0.8rem;
+  }
+  .mood-option {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    border: 1.5px solid rgba(138,170,138,0.2);
+    background: var(--warm-white);
+    cursor: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .mood-option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg-color);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .mood-option:hover::before { opacity: 0.08; }
+  .mood-option:hover {
+    border-color: rgba(138,170,138,0.5);
+    transform: translateX(6px);
+  }
+  .mood-option.selected {
+    border-color: var(--sage);
+    background: var(--sage-pale);
+    transform: translateX(6px);
+  }
+  .mood-emoji { font-size: 1.6rem; }
+  .mood-label { font-size: 0.9rem; font-weight: 400; color: var(--text-soft); flex: 1; }
+  .mood-bar {
+    height: 4px; border-radius: 2px; flex: 2;
+    background: rgba(138,170,138,0.15);
+    overflow: hidden;
+  }
+  .mood-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sage-light), var(--sage));
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.2s ease;
+  }
+  .mood-response {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--sage-pale);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 12px 12px 0;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* RESOURCES */
+  .resources-section { padding: 7rem 0; }
+  .resources-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .resource-card {
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(138,170,138,0.15);
+  }
+  .resource-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+  }
+  .resource-card.teal { background: linear-gradient(135deg, rgba(138,170,138,0.12), rgba(184,212,232,0.12)); }
+  .resource-card.blush { background: linear-gradient(135deg, rgba(232,201,192,0.2), rgba(197,188,216,0.1)); }
+  .resource-card.sky { background: linear-gradient(135deg, rgba(184,212,232,0.2), rgba(138,170,138,0.08)); }
+  .resource-card.lavender { background: linear-gradient(135deg, rgba(197,188,216,0.25), rgba(232,201,192,0.1)); }
+  .resource-card.mint { background: linear-gradient(135deg, rgba(181,205,181,0.2), rgba(184,212,232,0.12)); }
+  .resource-card.warm { background: linear-gradient(135deg, rgba(232,201,192,0.15), rgba(138,170,138,0.1)); }
+  .resource-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    background: rgba(255,255,255,0.7);
+  }
+  .resource-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .resource-card p {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .resource-card .card-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .resource-card:hover .card-link { gap: 0.7rem; }
+
+  /* AFFIRMATION */
+  .affirmation-section {
+    padding: 7rem 0;
+    background: linear-gradient(to bottom right, rgba(197,188,216,0.12), rgba(232,201,192,0.12));
+    text-align: center;
+  }
+  .affirmation-box {
+    max-width: 700px;
+    margin: 3rem auto 0;
+    padding: 3rem 3.5rem;
+    background: var(--warm-white);
+    border-radius: 32px;
+    box-shadow: 0 4px 40px rgba(138,170,138,0.1);
+    position: relative;
+  }
+  .affirmation-box::before {
+    content: '❝';
+    font-size: 4rem;
+    color: rgba(138,170,138,0.25);
+    position: absolute;
+    top: 1rem; left: 2rem;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  #affirmationText {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .affirmation-author {
+    margin-top: 1.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-lighter);
+  }
+  .affirmation-btn {
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 1.5px solid rgba(138,170,138,0.4);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--sage);
+    cursor: none;
+    transition: all 0.3s;
+    letter-spacing: 0.08em;
+  }
+  .affirmation-btn:hover {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    transform: scale(1.03);
+  }
+
+  /* BREATH EXERCISE */
+  .breath-section { padding: 7rem 0; }
+  .breath-exercise {
+    display: flex; gap: 6rem; align-items: center;
+    flex-wrap: wrap;
+  }
+  .breath-left { flex: 1; min-width: 280px; }
+  .breath-left p {
+    font-size: 1rem; color: var(--text-soft); line-height: 1.8; font-weight: 300; margin-top: 1.2rem; max-width: 400px;
+  }
+  .breath-right {
+    flex: 1; min-width: 280px;
+    display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  }
+  .big-breath-wrap { position: relative; }
+  .big-breath {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, rgba(197,188,216,0.6), rgba(138,170,138,0.3));
+    display: flex; align-items: center; justify-content: center;
+    cursor: none;
+    box-shadow: 0 0 0 0 rgba(138,170,138,0.3);
+    transition: all 0.1s;
+  }
+  .big-breath-inner {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, rgba(232,201,192,0.7), rgba(197,188,216,0.5));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-soft);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .breath-controls { display: flex; gap: 1rem; }
+  .breath-btn {
+    padding: 0.7rem 1.8rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: none;
+    transition: all 0.3s;
+    letter-spacing: 0.05em;
+  }
+  #startBreath {
+    background: var(--sage);
+    color: white;
+    border: none;
+  }
+  #startBreath:hover { background: #7a9a7a; transform: translateY(-2px); }
+  #resetBreath {
+    background: transparent;
+    color: var(--text-soft);
+    border: 1.5px solid rgba(138,170,138,0.35);
+  }
+  #resetBreath:hover { border-color: var(--sage); color: var(--sage); }
+  .breath-counter {
+    font-size: 0.75rem;
+    color: var(--text-lighter);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* JOURNAL */
+  .journal-section {
+    padding: 7rem 0;
+    background: linear-gradient(135deg, rgba(184,212,232,0.08), rgba(232,201,192,0.08));
+  }
+  .journal-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start;
+  }
+  .journal-left p {
+    font-size: 1rem; color: var(--text-soft); line-height: 1.8; font-weight: 300; margin-top: 1.2rem;
+  }
+  .journal-prompts { margin-top: 2rem; }
+  .journal-prompts h4 {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-lighter); margin-bottom: 1rem;
+  }
+  .prompt-chip {
+    display: inline-block;
+    margin: 0.3rem;
+    padding: 0.5rem 1rem;
+    background: var(--warm-white);
+    border: 1px solid rgba(138,170,138,0.25);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .prompt-chip:hover {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    color: var(--sage);
+    transform: translateY(-2px);
+  }
+  .journal-right {
+    background: var(--warm-white);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(138,170,138,0.15);
+  }
+  .journal-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+  }
+  .journal-date { font-size: 0.8rem; color: var(--text-lighter); letter-spacing: 0.1em; }
+  .journal-dots { display: flex; gap: 0.3rem; }
+  .journal-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--sage-light); opacity: 0.5;
+  }
+  .journal-dots span:first-child { opacity: 1; background: var(--sage); }
+  #journalArea {
+    width: 100%;
+    border: none; outline: none;
+    background: transparent;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.8;
+    resize: none;
+    min-height: 200px;
+    placeholder-color: var(--text-lighter);
+  }
+  #journalArea::placeholder { color: var(--text-lighter); font-style: italic; }
+  .journal-footer {
+    margin-top: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(138,170,138,0.15);
+    padding-top: 1rem;
+  }
+  #wordCount { font-size: 0.75rem; color: var(--text-lighter); }
+  .journal-save {
+    padding: 0.6rem 1.5rem;
+    background: var(--sage);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .journal-save:hover { background: #7a9a7a; }
+
+  /* HOTLINES */
+  .hotlines-section { padding: 7rem 0; }
+  .hotlines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .hotline-card {
+    padding: 1.8rem 2rem;
+    border-radius: 20px;
+    background: var(--warm-white);
+    border: 1px solid rgba(138,170,138,0.2);
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .hotline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(138,170,138,0.12);
+    border-color: var(--sage-light);
+  }
+  .hotline-flag { font-size: 1.5rem; margin-bottom: 0.8rem; }
+  .hotline-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .hotline-number {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--sage);
+    letter-spacing: 0.02em;
+    display: block;
+    margin: 0.5rem 0;
+  }
+  .hotline-card p { font-size: 0.82rem; color: var(--text-lighter); line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 0 2.5rem;
+    border-top: 1px solid rgba(138,170,138,0.15);
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--text-lighter);
+    line-height: 1.8;
+    max-width: 400px;
+    margin: 0.5rem auto;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; justify-content: center;
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+  .footer-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-lighter);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--sage); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: var(--text);
+    color: white;
+    padding: 0.9rem 1.6rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* FLOATING HEARTS */
+  .floating-heart {
+    position: fixed;
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 50;
+    animation: heartFloat 1.8s ease-in forwards;
+  }
+  @keyframes heartFloat {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-120px) scale(0.5); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .mood-grid, .journal-inner, .breath-exercise { grid-template-columns: 1fr; gap: 2rem; }
+    .resources-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 2.8rem; }
+  }
+  @media (max-width: 480px) {
+    .resources-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Floating particles -->
+<div class="particle-container" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🌿 <span>Serene</span>Mind</div>
+  <ul class="nav-links">
+    <li><a href="#mood">Check In</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#breathe">Breathe</a></li>
+    <li><a href="#journal">Journal</a></li>
+    <li><a href="#help">Get Help</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">You are not alone • Mental Health Support</div>
+  <h1>A gentle space<br>for <em>healing</em> &amp; growth</h1>
+  <p class="hero-sub">Nurturing your mental wellbeing, one breath at a time. Resources, tools, and compassion — always here for you.</p>
+  <div class="hero-actions">
+    <a href="#mood" class="btn-primary">Check In Today</a>
+    <a href="#resources" class="btn-outline">Explore Resources</a>
+  </div>
+  <div class="breath-widget">
+    <div class="breath-circle-wrap">
+      <div class="breath-circle">🌸</div>
+      <div class="breath-text">Follow the rhythm</div>
+      <div id="breathLabel">Breathe in…</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MOOD CHECK -->
+<section class="mood-section" id="mood">
+  <div class="section-inner">
+    <div class="mood-grid">
+      <div class="mood-intro reveal">
+        <span class="section-label">Daily Check-In</span>
+        <h2 class="section-title">How are you<br><em>feeling today?</em></h2>
+        <p>Your feelings are valid — all of them. Take a moment to check in with yourself. There's no right or wrong answer here.</p>
+        <div class="mood-response" id="moodResponse"></div>
+      </div>
+      <div class="mood-cards reveal">
+        <div class="mood-option" data-mood="wonderful" style="--bg-color: #8aaa8a" onclick="selectMood(this, '🌟 Wonderful! Cherish this feeling. Maybe share some of that light with someone you love today.', 95)">
+          <span class="mood-emoji">🌟</span>
+          <span class="mood-label">Wonderful</span>
+          <div class="mood-bar"><div class="mood-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="mood-option" data-mood="good" style="--bg-color: #b5cdb5" onclick="selectMood(this, '😊 Glad you\'re feeling good! Small joys add up — keep noticing them.', 75)">
+          <span class="mood-emoji">😊</span>
+          <span class="mood-label">Pretty Good</span>
+          <div class="mood-bar"><div class="mood-bar-fill" data-width="75"></div></div>
+        </div>
+        <div class="mood-option" data-mood="okay" style="--bg-color: #b8d4e8" onclick="selectMood(this, '🙂 Okay is perfectly fine. Not every day needs to be extraordinary. Be gentle with yourself.', 55)">
+          <span class="mood-emoji">🙂</span>
+          <span class="mood-label">Just Okay</span>
+          <div class="mood-bar"><div class="mood-bar-fill" data-width="55"></div></div>
+        </div>
+        <div class="mood-option" data-mood="low" style="--bg-color: #c5bcd8" onclick="selectMood(this, '💙 Feeling low is hard. Try a few deep breaths, step outside, or reach out to someone. You matter.', 35)">
+          <span class="mood-emoji">😔</span>
+          <span class="mood-label">Feeling Low</span>
+          <div class="mood-bar"><div class="mood-bar-fill" data-width="35"></div></div>
+        </div>
+        <div class="mood-option" data-mood="struggling" style="--bg-color: #e8c9c0" onclick="selectMood(this, '🤍 Thank you for your honesty. Please know — you\'re stronger than you feel right now. Consider reaching out to a helpline below.', 15)">
+          <span class="mood-emoji">😢</span>
+          <span class="mood-label">Struggling</span>
+          <div class="mood-bar"><div class="mood-bar-fill" data-width="15"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="resources-section" id="resources">
+  <div class="section-inner">
+    <div class="resources-header reveal">
+      <div>
+        <span class="section-label">Curated Support</span>
+        <h2 class="section-title">Tools for your<br><em>wellbeing journey</em></h2>
+      </div>
+    </div>
+    <div class="resources-grid reveal">
+      <div class="resource-card teal">
+        <div class="resource-icon">🧘</div>
+        <h3>Mindfulness & Meditation</h3>
+        <p>Guided practices to ground yourself in the present moment and ease anxious thoughts.</p>
+        <a href="#breathe" class="card-link">Try breathing →</a>
+      </div>
+      <div class="resource-card blush">
+        <div class="resource-icon">📖</div>
+        <h3>Reflective Journaling</h3>
+        <p>Writing is healing. Explore your thoughts through gentle, guided prompts designed to unlock clarity.</p>
+        <a href="#journal" class="card-link">Start writing →</a>
+      </div>
+      <div class="resource-card sky">
+        <div class="resource-icon">🤝</div>
+        <h3>Crisis Support Lines</h3>
+        <p>You are never alone. Confidential helplines available 24/7 with trained, compassionate listeners.</p>
+        <a href="#help" class="card-link">See numbers →</a>
+      </div>
+      <div class="resource-card lavender">
+        <div class="resource-icon">💆</div>
+        <h3>Anxiety Relief</h3>
+        <p>Evidence-based grounding techniques to calm your nervous system during overwhelming moments.</p>
+        <a href="#breathe" class="card-link">Explore →</a>
+      </div>
+      <div class="resource-card mint">
+        <div class="resource-icon">🌱</div>
+        <h3>Daily Affirmations</h3>
+        <p>Gentle reminders of your worth and strength — words that nurture a kinder inner voice.</p>
+        <a href="#affirmations" class="card-link">Read more →</a>
+      </div>
+      <div class="resource-card warm">
+        <div class="resource-icon">🌙</div>
+        <h3>Sleep & Rest</h3>
+        <p>Rest is healing. Wind-down routines, sleep hygiene tips, and calming audio to ease you into peace.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFFIRMATIONS -->
+<section class="affirmation-section" id="affirmations">
+  <div class="section-inner">
+    <span class="section-label reveal">Daily Affirmations</span>
+    <h2 class="section-title reveal">Words that <em>heal</em></h2>
+    <div class="affirmation-box reveal" id="affirmBox">
+      <p id="affirmationText">You are worthy of love and belonging — exactly as you are, in this moment.</p>
+      <p class="affirmation-author">— A gentle reminder 🌿</p>
+      <button class="affirmation-btn" onclick="newAffirmation()">✨ New Affirmation</button>
+    </div>
+  </div>
+</section>
+
+<!-- BREATHE -->
+<section class="breath-section" id="breathe">
+  <div class="section-inner">
+    <div class="breath-exercise">
+      <div class="breath-left reveal">
+        <span class="section-label">Guided Breathing</span>
+        <h2 class="section-title">Breathe your<br>way to <em>calm</em></h2>
+        <p>Box breathing is a simple, powerful technique used by therapists and athletes alike. Inhale for 4 counts, hold for 4, exhale for 4, hold for 4. Repeat to activate your parasympathetic nervous system.</p>
+      </div>
+      <div class="breath-right reveal">
+        <div class="big-breath-wrap">
+          <div class="big-breath" id="bigBreath">
+            <div class="big-breath-inner" id="breathInner">Press<br>Start</div>
+          </div>
+        </div>
+        <div class="breath-controls">
+          <button class="breath-btn" id="startBreath" onclick="toggleBreath()">Start</button>
+          <button class="breath-btn" id="resetBreath" onclick="resetBreath()">Reset</button>
+        </div>
+        <div class="breath-counter" id="breathCounter">Ready to begin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="journal-section" id="journal">
+  <div class="section-inner">
+    <div class="journal-inner">
+      <div class="journal-left reveal">
+        <span class="section-label">Reflective Space</span>
+        <h2 class="section-title">Your private<br><em>journal</em></h2>
+        <p>Words hold power. Writing about your feelings reduces stress, improves clarity, and cultivates self-compassion. This space is yours — write freely, without judgment.</p>
+        <div class="journal-prompts">
+          <h4>Gentle prompts</h4>
+          <span class="prompt-chip" onclick="setPrompt('What am I grateful for today, even in small ways?')">Gratitude</span>
+          <span class="prompt-chip" onclick="setPrompt('What emotion am I carrying right now, and where do I feel it in my body?')">Feelings</span>
+          <span class="prompt-chip" onclick="setPrompt('What do I need more of in my life right now?')">Needs</span>
+          <span class="prompt-chip" onclick="setPrompt('What would I say to a friend feeling the way I feel?')">Self-Compassion</span>
+          <span class="prompt-chip" onclick="setPrompt('What is one small thing I can do to take care of myself today?')">Self-Care</span>
+        </div>
+      </div>
+      <div class="journal-right reveal">
+        <div class="journal-header">
+          <span class="journal-date" id="journalDate"></span>
+          <div class="journal-dots"><span></span><span></span><span></span></div>
+        </div>
+        <textarea id="journalArea" placeholder="Begin writing… your thoughts are safe here." oninput="updateWordCount()"></textarea>
+        <div class="journal-footer">
+          <span id="wordCount">0 words</span>
+          <button class="journal-save" onclick="saveJournal()">Save Entry 🌿</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOTLINES -->
+<section class="hotlines-section" id="help">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">24/7 Support</span>
+      <h2 class="section-title">You are never<br><em>alone</em></h2>
+      <p style="color:var(--text-soft); font-size:1rem; line-height:1.7; margin-top:1rem; max-width:550px; font-weight:300;">
+        If you or someone you know is in crisis, please reach out. These trained professionals care and are ready to listen — any hour, any day.
+      </p>
+    </div>
+    <div class="hotlines-grid reveal">
+      <div class="hotline-card">
+        <div class="hotline-flag">🇺🇸</div>
+        <h4>National Suicide Prevention</h4>
+        <span class="hotline-number">988</span>
+        <p>Call or text 988 anytime. Free, confidential support for people in distress.</p>
+      </div>
+      <div class="hotline-card">
+        <div class="hotline-flag">💬</div>
+        <h4>Crisis Text Line</h4>
+        <span class="hotline-number">Text HOME to 741741</span>
+        <p>Text-based crisis support available 24/7 for those who prefer not to call.</p>
+      </div>
+      <div class="hotline-card">
+        <div class="hotline-flag">🇬🇧</div>
+        <h4>Samaritans (UK)</h4>
+        <span class="hotline-number">116 123</span>
+        <p>Free, round-the-clock listening support for anyone struggling emotionally.</p>
+      </div>
+      <div class="hotline-card">
+        <div class="hotline-flag">🌍</div>
+        <h4>International Association</h4>
+        <span class="hotline-number">findahelpline.com</span>
+        <p>Find local crisis resources in your country at findahelpline.com.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="section-inner">
+    <div class="footer-logo">🌿 SereneMind</div>
+    <p>Built with care for those navigating the beautiful, difficult journey of mental health.</p>
+    <p>If you are in immediate danger, please call your local emergency services.</p>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#help">Crisis Help</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// === CURSOR ===
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+});
+function animRing() {
+  rx += (mx - rx - 18) * 0.12;
+  ry += (my - ry - 18) * 0.12;
+  ring.style.transform = `translate(${rx}px, ${ry}px)`;
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a, button, .mood-option, .prompt-chip, .resource-card, .hotline-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(1.5)'; ring.style.width = '50px'; ring.style.height = '50px'; });
+  el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; });
+});
+
+// === PARTICLES ===
+const pc = document.getElementById('particles');
+const colors = ['#8aaa8a','#c5bcd8','#e8c9c0','#b8d4e8','#b5cdb5'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const sz = 4 + Math.random() * 10;
+  p.style.cssText = `
+    width:${sz}px; height:${sz}px;
+    left:${Math.random()*100}%;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    --dur:${8+Math.random()*12}s;
+    --delay:${Math.random()*8}s;
+  `;
+  pc.appendChild(p);
+}
+
+// === HERO BREATHE LABEL ===
+const breathPhases = ['Breathe in…','Hold…','Breathe out…','Hold…'];
+let bpIdx = 0;
+setInterval(() => {
+  bpIdx = (bpIdx + 1) % breathPhases.length;
+  document.getElementById('breathLabel').textContent = breathPhases[bpIdx];
+}, 4000);
+
+// === REVEAL ON SCROLL ===
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(r => obs.observe(r));
+
+// === MOOD CHECK ===
+function selectMood(el, msg, w) {
+  document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const resp = document.getElementById('moodResponse');
+  resp.textContent = msg;
+  resp.style.display = 'block';
+  el.querySelector('.mood-bar-fill').style.width = w + '%';
+  spawnHearts(el);
+}
+
+// === AFFIRMATIONS ===
+const affirmations = [
+  "You are worthy of love and belonging — exactly as you are, in this moment.",
+  "Your feelings are valid. You don't need to explain or justify them.",
+  "It's okay to not be okay. Healing isn't linear, and that's perfectly fine.",
+  "You have survived every difficult day so far. You are stronger than you know.",
+  "Rest is not weakness — it is one of the bravest things you can do.",
+  "Small steps forward are still steps forward. Be proud of every one.",
+  "You deserve kindness, patience, and compassion — especially from yourself.",
+  "Your presence in this world matters more than you can see right now.",
+  "It's okay to ask for help. Reaching out is an act of courage.",
+  "You are not your worst days. You are the whole beautiful, complex you.",
+  "Breathing through hard moments is enough. You are doing enough.",
+  "Somewhere, someone is grateful you exist. You are loved.",
+];
+let affIdx = 0;
+function newAffirmation() {
+  affIdx = (affIdx + 1) % affirmations.length;
+  const el = document.getElementById('affirmationText');
+  el.style.opacity = '0'; el.style.transform = 'translateY(8px)';
+  setTimeout(() => {
+    el.textContent = affirmations[affIdx];
+    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+  }, 400);
+  spawnHeartsAt(document.getElementById('affirmBox'));
+}
+
+// === BOX BREATHING ===
+let breathRunning = false;
+let breathTimer = null;
+let breathCycle = 0;
+let breathCount = 0;
+const phases = [
+  { label: 'Breathe In', dur: 4000, scale: '1.35', shadow: '0 0 0 30px rgba(138,170,138,0.15)' },
+  { label: 'Hold', dur: 4000, scale: '1.35', shadow: '0 0 0 40px rgba(197,188,216,0.12)' },
+  { label: 'Breathe Out', dur: 4000, scale: '1', shadow: '0 0 0 0 rgba(138,170,138,0)' },
+  { label: 'Hold', dur: 4000, scale: '1', shadow: '0 0 0 0 rgba(138,170,138,0)' },
+];
+
+function toggleBreath() {
+  breathRunning = !breathRunning;
+  document.getElementById('startBreath').textContent = breathRunning ? 'Pause' : 'Resume';
+  if (breathRunning) runBreath();
+  else clearTimeout(breathTimer);
+}
+
+function runBreath() {
+  if (!breathRunning) return;
+  const ph = phases[breathCycle];
+  const inner = document.getElementById('breathInner');
+  const big = document.getElementById('bigBreath');
+  inner.textContent = ph.label;
+  big.style.transition = `transform ${ph.dur * 0.9}ms ease-in-out, box-shadow ${ph.dur * 0.9}ms ease-in-out`;
+  big.style.transform = `scale(${ph.scale})`;
+  big.style.boxShadow = ph.shadow;
+  if (breathCycle === 0) { breathCount++; document.getElementById('breathCounter').textContent = `Cycle ${breathCount} 🌿`; }
+  breathCycle = (breathCycle + 1) % 4;
+  breathTimer = setTimeout(runBreath, ph.dur);
+}
+
+function resetBreath() {
+  breathRunning = false;
+  clearTimeout(breathTimer);
+  breathCycle = 0; breathCount = 0;
+  document.getElementById('startBreath').textContent = 'Start';
+  document.getElementById('breathInner').textContent = 'Press\nStart';
+  document.getElementById('bigBreath').style.transform = 'scale(1)';
+  document.getElementById('bigBreath').style.boxShadow = 'none';
+  document.getElementById('breathCounter').textContent = 'Ready to begin';
+}
+
+// === JOURNAL ===
+const today = new Date();
+document.getElementById('journalDate').textContent = today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+function updateWordCount() {
+  const txt = document.getElementById('journalArea').value.trim();
+  const wc = txt ? txt.split(/\s+/).length : 0;
+  document.getElementById('wordCount').textContent = wc + ' word' + (wc !== 1 ? 's' : '');
+}
+
+function setPrompt(p) {
+  document.getElementById('journalArea').value = p + '\n\n';
+  document.getElementById('journalArea').focus();
+  updateWordCount();
+}
+
+function saveJournal() {
+  const txt = document.getElementById('journalArea').value.trim();
+  if (!txt) { showToast('Please write something first 🌱'); return; }
+  showToast('Entry saved with care 🌿');
+  spawnHeartsAt(document.querySelector('.journal-right'));
+}
+
+// === TOAST ===
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// === FLOATING HEARTS ===
+function spawnHearts(el) {
+  const rect = el.getBoundingClientRect();
+  for (let i = 0; i < 5; i++) {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = ['🌸','💚','🤍','🌿','✨'][Math.floor(Math.random()*5)];
+    h.style.left = (rect.left + Math.random() * rect.width) + 'px';
+    h.style.top = (rect.top + Math.random() * rect.height / 2) + 'px';
+    h.style.animationDelay = (Math.random() * 0.4) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 2000);
+  }
+}
+
+function spawnHeartsAt(el) {
+  const rect = el.getBoundingClientRect();
+  for (let i = 0; i < 6; i++) {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = ['🌸','💚','🤍','🌿','✨','💫'][i];
+    h.style.left = (rect.left + 20 + Math.random() * (rect.width - 40)) + 'px';
+    h.style.top = (rect.top + rect.height / 2) + 'px';
+    h.style.animationDelay = (i * 0.1) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 2200);
+  }
+}
+</script>
+</body>
+</html>
