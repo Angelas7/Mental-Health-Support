@@ -763,6 +763,227 @@
     100% { opacity: 0; transform: translateY(-120px) scale(0.5); }
   }
 
+  /* APPLY SECTION */
+  .apply-section {
+    padding: 7rem 0;
+    background: linear-gradient(135deg, rgba(138,170,138,0.07), rgba(197,188,216,0.1), rgba(232,201,192,0.08));
+  }
+  .apply-header { margin-bottom: 3.5rem; }
+  .apply-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .apply-card {
+    border-radius: 28px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(138,170,138,0.18);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: default;
+  }
+  .apply-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.07);
+  }
+  .therapist-card { background: linear-gradient(145deg, rgba(138,170,138,0.1), rgba(184,212,232,0.12)); }
+  .seeker-card { background: linear-gradient(145deg, rgba(232,201,192,0.18), rgba(197,188,216,0.15)); }
+  .apply-card-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4), transparent 60%);
+    pointer-events: none;
+  }
+  .apply-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .apply-card-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    background: rgba(138,170,138,0.12);
+    border: 1px solid rgba(138,170,138,0.25);
+    border-radius: 50px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .apply-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.9rem;
+  }
+  .apply-card > p {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .apply-perks {
+    list-style: none;
+    margin-bottom: 2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .apply-perks li {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .apply-btn {
+    padding: 0.9rem 2.2rem;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .apply-btn-teal { background: var(--sage); color: white; }
+  .apply-btn-teal:hover { background: #7a9a7a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(138,170,138,0.35); }
+  .apply-btn-blush { background: var(--blush); color: var(--text); }
+  .apply-btn-blush:hover { background: #ddb8ae; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,201,192,0.4); }
+
+  /* MODALS */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(61,53,48,0.45);
+    backdrop-filter: blur(8px);
+    z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--warm-white);
+    border-radius: 28px;
+    padding: 3rem;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.35s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+    scrollbar-width: thin;
+    scrollbar-color: var(--sage-light) transparent;
+  }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+  .modal-form-box { max-width: 560px; }
+  .modal-close {
+    position: absolute; top: 1.3rem; right: 1.5rem;
+    background: rgba(138,170,138,0.12);
+    border: none;
+    color: var(--text-soft);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    cursor: none;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: rgba(138,170,138,0.25); color: var(--text); }
+
+  /* Article modal content */
+  .article-header { margin-bottom: 2rem; }
+  .article-tag {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 0.7rem; display: block;
+  }
+  .article-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; color: var(--text); line-height: 1.2;
+  }
+  .article-body p {
+    font-size: 0.95rem; color: var(--text-soft); line-height: 1.85;
+    font-weight: 300; margin-bottom: 1.2rem;
+  }
+  .article-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 400; color: var(--text);
+    margin: 1.8rem 0 0.6rem;
+  }
+  .article-hotlines { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .article-hotline-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--sage-pale);
+    border-radius: 14px;
+    border: 1px solid rgba(138,170,138,0.2);
+  }
+  .article-hotline-item .flag { font-size: 1.3rem; }
+  .article-hotline-item .info { flex: 1; }
+  .article-hotline-item .info strong { display: block; font-size: 0.85rem; color: var(--text); font-weight: 500; }
+  .article-hotline-item .info span { font-size: 0.78rem; color: var(--text-lighter); }
+  .article-hotline-item .number { font-size: 1rem; font-weight: 600; color: var(--sage); white-space: nowrap; }
+
+  /* Form styles */
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .form-sub { font-size: 0.88rem; color: var(--text-lighter); margin-bottom: 2rem; line-height: 1.6; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; font-size: 0.75rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.8rem 1.1rem;
+    background: var(--sage-pale);
+    border: 1px solid rgba(138,170,138,0.25);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.3s;
+    cursor: text;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--sage);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    width: 100%; padding: 1rem;
+    background: var(--sage); color: white;
+    border: none; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500;
+    cursor: none; transition: all 0.3s;
+    margin-top: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .form-submit:hover { background: #7a9a7a; transform: translateY(-2px); }
+  .form-success {
+    text-align: center; padding: 2rem 0;
+    display: none;
+  }
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .form-success h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 300; color: var(--text); margin-bottom: 0.5rem;
+  }
+  .form-success p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.7; }
+
+  @media (max-width: 768px) {
+    .apply-cards { grid-template-columns: 1fr; }
+    .modal-box { padding: 2rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
@@ -793,6 +1014,7 @@
     <li><a href="#breathe">Breathe</a></li>
     <li><a href="#journal">Journal</a></li>
     <li><a href="#help">Get Help</a></li>
+    <li><a href="#apply">Apply</a></li>
   </ul>
 </nav>
 
@@ -803,7 +1025,6 @@
   <p class="hero-sub">Nurturing your mental wellbeing, one breath at a time. Resources, tools, and compassion — always here for you.</p>
   <div class="hero-actions">
     <a href="#mood" class="btn-primary">Check In Today</a>
-    <a href="#resources" class="btn-outline">Explore Resources</a>
   </div>
   <div class="breath-widget">
     <div class="breath-circle-wrap">
@@ -873,7 +1094,7 @@
         <div class="resource-icon">🧘</div>
         <h3>Mindfulness & Meditation</h3>
         <p>Guided practices to ground yourself in the present moment and ease anxious thoughts.</p>
-        <a href="#breathe" class="card-link">Try breathing →</a>
+        <a href="#" class="card-link" onclick="openArticle('mindfulness'); return false;">Try breathing →</a>
       </div>
       <div class="resource-card blush">
         <div class="resource-icon">📖</div>
@@ -885,19 +1106,19 @@
         <div class="resource-icon">🤝</div>
         <h3>Crisis Support Lines</h3>
         <p>You are never alone. Confidential helplines available 24/7 with trained, compassionate listeners.</p>
-        <a href="#help" class="card-link">See numbers →</a>
+        <a href="#" class="card-link" onclick="openArticle('crisis'); return false;">See numbers →</a>
       </div>
       <div class="resource-card lavender">
         <div class="resource-icon">💆</div>
         <h3>Anxiety Relief</h3>
         <p>Evidence-based grounding techniques to calm your nervous system during overwhelming moments.</p>
-        <a href="#breathe" class="card-link">Explore →</a>
+        <a href="#" class="card-link" onclick="openArticle('anxiety'); return false;">Explore →</a>
       </div>
       <div class="resource-card mint">
         <div class="resource-icon">🌱</div>
         <h3>Daily Affirmations</h3>
         <p>Gentle reminders of your worth and strength — words that nurture a kinder inner voice.</p>
-        <a href="#affirmations" class="card-link">Read more →</a>
+        <a href="#" class="card-link" onclick="openArticle('affirmations'); return false;">Read more →</a>
       </div>
       <div class="resource-card warm">
         <div class="resource-icon">🌙</div>
@@ -991,32 +1212,103 @@
     </div>
     <div class="hotlines-grid reveal">
       <div class="hotline-card">
-        <div class="hotline-flag">🇺🇸</div>
-        <h4>National Suicide Prevention</h4>
-        <span class="hotline-number">988</span>
-        <p>Call or text 988 anytime. Free, confidential support for people in distress.</p>
+        <div class="hotline-flag">🇮🇳</div>
+        <h4>iCall — India</h4>
+        <span class="hotline-number">9152987821</span>
+        <p>Free, confidential psychological counselling by trained professionals. Mon–Sat, 8am–10pm.</p>
       </div>
       <div class="hotline-card">
-        <div class="hotline-flag">💬</div>
-        <h4>Crisis Text Line</h4>
-        <span class="hotline-number">Text HOME to 741741</span>
-        <p>Text-based crisis support available 24/7 for those who prefer not to call.</p>
+        <div class="hotline-flag">🇮🇳</div>
+        <h4>Vandrevala Foundation</h4>
+        <span class="hotline-number">1860-2662-345</span>
+        <p>24/7 mental health crisis helpline in India. Free & confidential. Available in multiple languages.</p>
       </div>
       <div class="hotline-card">
-        <div class="hotline-flag">🇬🇧</div>
-        <h4>Samaritans (UK)</h4>
-        <span class="hotline-number">116 123</span>
-        <p>Free, round-the-clock listening support for anyone struggling emotionally.</p>
+        <div class="hotline-flag">🇮🇳</div>
+        <h4>SNEHI — India</h4>
+        <span class="hotline-number">044-24640050</span>
+        <p>Suicide prevention & emotional support helpline. Daily 8am–10pm. Empathetic listeners, no judgment.</p>
+      </div>
+      <div class="hotline-card">
+        <div class="hotline-flag">🇮🇳</div>
+        <h4>iCall Text Support</h4>
+        <span class="hotline-number">WhatsApp: 9152987821</span>
+        <p>Prefer not to call? Reach a counsellor via WhatsApp chat for text-based support.</p>
       </div>
       <div class="hotline-card">
         <div class="hotline-flag">🌍</div>
-        <h4>International Association</h4>
+        <h4>Befrienders Worldwide</h4>
+        <span class="hotline-number">befrienders.org</span>
+        <p>Find a local crisis centre in 32+ countries. Confidential emotional support across the globe.</p>
+      </div>
+      <div class="hotline-card">
+        <div class="hotline-flag">💬</div>
+        <h4>Find A Helpline</h4>
         <span class="hotline-number">findahelpline.com</span>
-        <p>Find local crisis resources in your country at findahelpline.com.</p>
+        <p>Searchable directory of verified crisis helplines worldwide. Available in your language and country.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- APPLY SECTION -->
+<section class="apply-section" id="apply">
+  <div class="section-inner">
+    <div class="apply-header reveal">
+      <span class="section-label">Join Our Community</span>
+      <h2 class="section-title">Be part of something<br><em>meaningful</em></h2>
+      <p style="color:var(--text-soft);font-size:1rem;line-height:1.8;margin-top:1rem;max-width:520px;font-weight:300;">
+        Whether you're a trained mental health professional or someone looking for support — there's a place for you here.
+      </p>
+    </div>
+    <div class="apply-cards reveal">
+      <div class="apply-card therapist-card">
+        <div class="apply-card-bg"></div>
+        <div class="apply-card-icon">🩺</div>
+        <div class="apply-card-tag">For Professionals</div>
+        <h3>Apply as a Therapist</h3>
+        <p>Are you a licensed mental health professional? Join our network of compassionate therapists and make a real difference in people's lives — on your own terms.</p>
+        <ul class="apply-perks">
+          <li>✦ Set your own hours & rates</li>
+          <li>✦ Connect with clients who need you</li>
+          <li>✦ Supportive peer community</li>
+          <li>✦ Simple, secure platform</li>
+        </ul>
+        <button class="apply-btn apply-btn-teal" onclick="openApplyForm('therapist')">Apply Now →</button>
+      </div>
+      <div class="apply-card seeker-card">
+        <div class="apply-card-bg"></div>
+        <div class="apply-card-icon">🌸</div>
+        <div class="apply-card-tag">For Those Seeking Help</div>
+        <h3>Apply for Support</h3>
+        <p>Taking the first step toward healing takes courage. Let us match you with a caring therapist who truly understands what you're going through — safely and confidentially.</p>
+        <ul class="apply-perks">
+          <li>✦ Matched to the right therapist</li>
+          <li>✦ Affordable, flexible options</li>
+          <li>✦ Completely confidential</li>
+          <li>✦ Begin your healing journey</li>
+        </ul>
+        <button class="apply-btn apply-btn-blush" onclick="openApplyForm('seeker')">Get Started →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="articleModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeArticleModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- APPLY FORM MODAL -->
+<div class="modal-overlay" id="applyModal" onclick="closeModal(event)">
+  <div class="modal-box modal-form-box">
+    <button class="modal-close" onclick="closeApplyModal()">✕</button>
+    <div id="applyContent"></div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1028,6 +1320,7 @@
       <li><a href="#">Privacy</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#help">Crisis Help</a></li>
+      <li><a href="#apply">Apply</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
   </div>
@@ -1233,6 +1526,170 @@ function spawnHeartsAt(el) {
     setTimeout(() => h.remove(), 2200);
   }
 }
+// === ARTICLE MODAL ===
+const articles = {
+  crisis: {
+    tag: 'Crisis Support',
+    title: 'You Are Never Alone — Help is Here',
+    body: `
+      <div class="article-body">
+        <p>Reaching out in a moment of crisis is one of the bravest things you can do. These helplines are staffed by trained, compassionate listeners available around the clock — no judgment, no cost.</p>
+        <h4>🇮🇳 India Helplines</h4>
+        <div class="article-hotlines">
+          <div class="article-hotline-item"><span class="flag">🇮🇳</span><div class="info"><strong>iCall</strong><span>Mon–Sat, 8am–10pm • Free counselling</span></div><span class="number">9152987821</span></div>
+          <div class="article-hotline-item"><span class="flag">🇮🇳</span><div class="info"><strong>Vandrevala Foundation</strong><span>24/7 • Multi-language</span></div><span class="number">1860-2662-345</span></div>
+          <div class="article-hotline-item"><span class="flag">🇮🇳</span><div class="info"><strong>SNEHI</strong><span>Daily 8am–10pm • Emotional support</span></div><span class="number">044-24640050</span></div>
+          <div class="article-hotline-item"><span class="flag">🇮🇳</span><div class="info"><strong>AASRA</strong><span>24/7 • Suicide prevention</span></div><span class="number">9820466627</span></div>
+          <div class="article-hotline-item"><span class="flag">🇮🇳</span><div class="info"><strong>iCall WhatsApp</strong><span>Text support • Confidential</span></div><span class="number">9152987821</span></div>
+        </div>
+        <h4>🌍 International Support</h4>
+        <div class="article-hotlines">
+          <div class="article-hotline-item"><span class="flag">🌐</span><div class="info"><strong>Befrienders Worldwide</strong><span>32+ countries</span></div><span class="number">befrienders.org</span></div>
+          <div class="article-hotline-item"><span class="flag">🔍</span><div class="info"><strong>Find A Helpline</strong><span>Search by country & language</span></div><span class="number">findahelpline.com</span></div>
+        </div>
+        <p style="margin-top:1.5rem;font-style:italic;">If you are in immediate danger, please call your local emergency number (112 in India).</p>
+      </div>
+    `
+  },
+  mindfulness: {
+    tag: 'Mindfulness & Meditation',
+    title: 'The Science of Staying Present',
+    body: `
+      <div class="article-body">
+        <p>Mindfulness is the practice of paying gentle attention to the present moment — your breath, your body, your surroundings — without judgment. Decades of research show it reduces anxiety, improves emotional regulation, and builds resilience.</p>
+        <h4>Why it works</h4>
+        <p>When we're anxious or overwhelmed, our minds race into the future or replay the past. Mindfulness interrupts this cycle by anchoring attention to what is real and present. Over time, it rewires the brain — literally strengthening areas associated with calm and compassion.</p>
+        <h4>Simple practices to start today</h4>
+        <p><strong>Box Breathing (4-4-4-4):</strong> Inhale for 4 counts, hold for 4, exhale for 4, hold for 4. Repeat 4 times. Use our guided breathing tool above.</p>
+        <p><strong>5-4-3-2-1 Grounding:</strong> Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste. Instantly grounds you in the present.</p>
+        <p><strong>Body Scan:</strong> Lie down and slowly move your attention from your feet to the top of your head, noticing (without changing) how each area feels.</p>
+        <h4>Recommended apps</h4>
+        <p>Headspace, Insight Timer (free), and Calm all offer guided meditations in Hindi and English — many are completely free.</p>
+      </div>
+    `
+  },
+  anxiety: {
+    tag: 'Anxiety Relief',
+    title: 'Grounding Techniques for Hard Moments',
+    body: `
+      <div class="article-body">
+        <p>Anxiety is your nervous system trying to protect you — but sometimes it misfires. These evidence-based techniques help regulate your nervous system and bring you back to safety.</p>
+        <h4>Cold Water Reset</h4>
+        <p>Splash cold water on your face, or hold an ice cube. This activates the dive reflex, slowing your heart rate and calming panic within seconds. It sounds simple — but it works.</p>
+        <h4>Physiological Sigh</h4>
+        <p>Take a double inhale through the nose (sniff twice), then a long, slow exhale through the mouth. This is the fastest known way to reduce physiological arousal. One or two cycles is enough.</p>
+        <h4>Cognitive Defusion</h4>
+        <p>When an anxious thought arises, try saying "I notice I'm having the thought that…" before it. This creates distance between you and the thought — you are not your anxiety.</p>
+        <h4>The TIPP Skill (DBT)</h4>
+        <p><strong>T</strong>emperature (cold water), <strong>I</strong>ntense exercise for 20 minutes, <strong>P</strong>aced breathing, <strong>P</strong>rogressive muscle relaxation. Any one of these can shift your emotional state when nothing else works.</p>
+        <h4>When to seek professional help</h4>
+        <p>If anxiety is significantly interfering with daily life, work, or relationships, please speak to a therapist. You don't have to manage alone — and healing is possible.</p>
+      </div>
+    `
+  },
+  affirmations: {
+    tag: 'Daily Affirmations',
+    title: 'Why Kind Words to Yourself Matter',
+    body: `
+      <div class="article-body">
+        <p>Affirmations are not toxic positivity — they are intentional redirections of the inner voice. When practiced consistently, they help rewrite the negative self-talk patterns that fuel anxiety and depression.</p>
+        <h4>The neuroscience</h4>
+        <p>Studies in self-affirmation theory show that reflecting on personal values and positive self-statements activates the brain's reward centers and reduces the threat response. Over time, this builds psychological resilience.</p>
+        <h4>How to use affirmations effectively</h4>
+        <p>Don't just repeat words passively. Pause on each one. Feel where resistance arises — that resistance often points to where healing is most needed. Start with affirmations that feel almost (not fully) true.</p>
+        <h4>Affirmations for difficult days</h4>
+        <p>"I am doing the best I can with what I have."<br>"My feelings are valid, even when they're hard."<br>"I have survived every difficult day before this one."<br>"It's okay to rest. Rest is not failure."<br>"I am allowed to take up space."</p>
+        <h4>Pair with journaling</h4>
+        <p>Write an affirmation at the top of your journal entry each morning. Then write freely — without editing — for 5 minutes. This "morning pages" practice builds self-awareness and emotional clarity over time.</p>
+      </div>
+    `
+  }
+};
+
+function openArticle(key) {
+  const art = articles[key];
+  document.getElementById('modalContent').innerHTML = `
+    <div class="article-header">
+      <span class="article-tag">${art.tag}</span>
+      <h2 class="article-title">${art.title}</h2>
+    </div>
+    ${art.body}
+  `;
+  document.getElementById('articleModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeArticleModal() {
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// === APPLY FORMS ===
+function openApplyForm(type) {
+  const isTherapist = type === 'therapist';
+  document.getElementById('applyContent').innerHTML = isTherapist ? `
+    <p class="form-title">Apply as a Therapist 🩺</p>
+    <p class="form-sub">Join our network of compassionate mental health professionals. We'll review your application within 3–5 business days.</p>
+    <div id="applyForm">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Priya"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+      <div class="form-group"><label>Qualification / License</label><input type="text" placeholder="e.g. RCI Licensed Clinical Psychologist"></div>
+      <div class="form-group"><label>Years of Experience</label>
+        <select><option>Select…</option><option>0–2 years</option><option>3–5 years</option><option>6–10 years</option><option>10+ years</option></select>
+      </div>
+      <div class="form-group"><label>Specialisation</label><input type="text" placeholder="e.g. Anxiety, Depression, Trauma, CBT"></div>
+      <div class="form-group"><label>Tell us about yourself</label><textarea placeholder="Share your approach, why you want to join, and what you believe about healing…"></textarea></div>
+      <button class="form-submit" onclick="submitForm()">Submit Application →</button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">🌿</div>
+      <h4>Application Received</h4>
+      <p>Thank you for your compassion and dedication. We'll be in touch within 3–5 business days. In the meantime, take a breath — you're doing meaningful work.</p>
+    </div>
+  ` : `
+    <p class="form-title">You've taken the first step 🌸</p>
+    <p class="form-sub">That takes real courage. Share a little about yourself so we can match you with the right support. Everything is completely confidential.</p>
+    <div id="applyForm">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Your name"></div>
+        <div class="form-group"><label>Age</label><input type="number" placeholder="e.g. 24"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+      <div class="form-group"><label>What are you looking for help with?</label>
+        <select><option>Select…</option><option>Anxiety or stress</option><option>Depression or low mood</option><option>Relationship issues</option><option>Trauma or past experiences</option><option>Grief or loss</option><option>Self-esteem</option><option>Not sure yet</option></select>
+      </div>
+      <div class="form-group"><label>Preferred session format</label>
+        <select><option>Select…</option><option>Video call</option><option>Phone call</option><option>Text / chat</option><option>In person</option></select>
+      </div>
+      <div class="form-group"><label>Anything else you'd like to share? (optional)</label><textarea placeholder="There's no right or wrong answer here. Share as much or as little as feels comfortable…"></textarea></div>
+      <button class="form-submit" onclick="submitForm()">Find My Match →</button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">💚</div>
+      <h4>We've Got You</h4>
+      <p>Thank you for reaching out — it truly takes courage. We'll match you with a therapist who's right for you and be in touch soon. You are not alone in this.</p>
+    </div>
+  `;
+  document.getElementById('applyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function submitForm() {
+  document.getElementById('applyForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+  spawnHeartsAt(document.getElementById('applyModal'));
+}
+function closeApplyModal() {
+  document.getElementById('applyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModal(e) {
+  if (e.target.classList.contains('modal-overlay')) {
+    closeArticleModal(); closeApplyModal();
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeArticleModal(); closeApplyModal(); } });
 </script>
-</body>
 </html>
