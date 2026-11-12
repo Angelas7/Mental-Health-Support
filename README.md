@@ -1,10 +1,10 @@
-# Serene Mind — Mental Health Support
+# Balenza Therapy — Mental Health Support
 
-Serene Mind is a wellbeing website and an in-progress private client portal. The original public-facing experience is in `index.html`; the authenticated portal scaffold is in `portal/`.
+Balenza Therapy is a wellbeing website and an in-progress private client portal. The original public-facing experience is in `index.html`; the authenticated portal scaffold is in `portal/`.
 
 ## Project areas
 
-- **Public website:** existing single-page Serene Mind experience, preserving its original visual identity.
+- **Public website:** existing single-page Balenza Therapy experience, preserving its original visual identity.
 - **Private portal:** React + Vite application with patient, therapist and administrator interface shells.
 - **Database:** Supabase PostgreSQL migrations with initial row-level security (RLS) policies.
 - **Planning:** product, existing-site audit and architecture documents in `docs/`.
