@@ -105,7 +105,7 @@ function PatientHome({ profile, session }) {
   }
   async function requestTherapist(event) {
     event.preventDefault();
-    const {error}=await supabase.from("therapist_patient_access").insert({therapist_id:therapistId.trim(),status:"pending"});
+    const {error}=await supabase.from("therapist_patient_access").insert({patient_id:session.user.id,therapist_id:therapistId.trim(),status:"pending"});
     if(error) setStatus(error.message); else {setTherapistId("");setStatus("Your access request has been sent. No information is shared until you approve specific permissions.");load();}
   }
   async function approveTherapist(id) {
