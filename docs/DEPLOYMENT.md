@@ -13,11 +13,45 @@ These are the Supabase project URL and public anon/publishable key. Never set a 
 Before enabling public traffic:
 1. Create a separate Supabase project for staging and apply the SQL migrations in order.
 2. Configure Auth email confirmation, allowed site URL and redirect URLs.
-3. Test patient and therapist accounts with synthetic data, including attempts to access another patient's IDs.
+3. Deploy the Edge Functions and set secrets listed below.
+4. Test patient and therapist accounts with synthetic data, including attempts to access another patient's IDs.
 4. Verify that journal and mood access remains blocked until the patient grants the relevant permission.
 5. Add the production domain to Supabase Auth redirect allowlists.
 6. Configure backups, recovery, retention, deletion, monitoring and incident response.
 7. Complete privacy/legal and clinical review before any real patient records are entered.
+
+## Email and account functions
+
+Deploy the Edge Functions from the repository root with the Supabase CLI:
+
+```bash
+supabase functions deploy admin-invite-user
+supabase functions deploy admin-list-users
+supabase functions deploy send-appointment-reminders
+```
+
+Set server-side function secrets in the Supabase project (never in frontend `.env.local`):
+
+- `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (server-side only)
+- `SUPABASE_ANON_KEY` for caller-session verification in admin functions
+- `AUTH_REDIRECT_URL` for account invitation confirmation
+- `ALLOWED_PORTAL_ORIGIN` set to the exact deployed portal origin
+- `RESEND_API_KEY` and `REMINDER_FROM_EMAIL` for appointment reminder delivery
+- `REMINDER_CRON_SECRET` for the scheduled reminder endpoint
+
+Configure a trusted scheduler to POST to `send-appointment-reminders` with `Authorization: Bearer <REMINDER_CRON_SECRET>` every 15 minutes. Verify the sender domain with the email provider first. Supabase Auth invitation/confirmation emails also need a production SMTP provider configured in the Auth settings.
+
+The reminder email contains only the appointment date/time and a sign-in prompt; it does not include journal, mood, diagnosis or homework details. Review time-zone, consent, deliverability and retry behavior before production.
+
+To provision the first platform administrator, use a trusted project-owner session in the Supabase SQL editor after verifying the intended account UUID:
+
+```sql
+update public.profiles
+set role = 'platform_admin'
+where id = '<verified-auth-user-uuid>';
+```
+
+Never expose the service-role key in the browser. The admin dashboard deliberately has no access to journal or mood content.
 
 ## Docker local run
 
