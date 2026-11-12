@@ -1,8 +1,8 @@
-# Serene Mind Portal — Product Plan
+# Balenza Therapy Portal — Product Plan
 
 ## Goal
 
-Evolve the existing Serene Mind mental-wellness website into a client-ready portal while preserving its calm, welcoming visual identity. The public-facing website should remain familiar; authenticated patient and therapist experiences can add functionality without turning the product into a generic corporate dashboard.
+Evolve the existing Balenza Therapy mental-wellness website into a client-ready portal while preserving its calm, welcoming visual identity. The public-facing website should remain familiar; authenticated patient and therapist experiences can add functionality without turning the product into a generic corporate dashboard.
 
 ## Current baseline
 
@@ -14,7 +14,7 @@ Evolve the existing Serene Mind mental-wellness website into a client-ready port
 ## Proposed MVP
 
 ### Public website
-- Preserve the current Serene Mind landing-page experience and its existing visual identity.
+- Preserve the current Balenza Therapy landing-page experience and its existing visual identity.
 - Add clear entry points for patient sign-in and therapist/admin sign-in.
 - Keep public forms honest: show a confirmation only after a real backend operation succeeds.
 
