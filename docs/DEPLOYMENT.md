@@ -11,7 +11,7 @@ Required environment variables in the hosting dashboard:
 These are the Supabase project URL and public anon/publishable key. Never set a service-role key or email-provider secret as a frontend environment variable.
 
 Before enabling public traffic:
-1. Create a separate Supabase project for staging and apply the SQL migrations in order.
+1. Create a separate Supabase project for staging.
 2. Apply all SQL migrations in order: `001`, `002`, `003`, then `004`.
 3. Configure Auth email confirmation, allowed site URL and redirect URLs.
 4. Deploy the Edge Functions and set secrets listed below.
