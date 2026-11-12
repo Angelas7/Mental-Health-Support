@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase, hasSupabaseConfig } from "undefined/lib/supabase";
+import { supabase, hasSupabaseConfig } from "./lib/supabase.js";
 import { BookHeart, CalendarDays, Check, CircleHelp, Heart, Leaf, LogOut, LockKeyhole, Moon, Smile, Sparkles, UserRound } from "lucide-react";
 
 const moods = [
