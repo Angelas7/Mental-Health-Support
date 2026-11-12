@@ -49,11 +49,19 @@ Configure Auth email confirmation and allowed redirect URLs in the Supabase dash
 - The portal is an initial scaffold; validate all database policies with separate test accounts before relying on them.
 - Never put a Supabase service-role key or email-provider secret in browser code or a `VITE_*` variable.
 - Therapist access is intended to be patient-approved and permission-scoped. Complete and independently test the consent, audit, account recovery, export/deletion, backup and incident-response workflows before launch.
-- Appointment reminder delivery and transactional email are not implemented yet.
+- Edge Function source is included for account invitations and appointment reminders. It is not deployed until you configure server-side secrets and a mail provider.
 - Review crisis resources with a qualified local professional; this website is not an emergency or crisis service.
 - Obtain appropriate privacy/legal review for the applicable Indian data-protection requirements before processing real patient data.
 
 Use synthetic test records only during development.
+
+## Supabase Edge Functions
+
+- `admin-invite-user`: lets an authenticated platform administrator invite patient/therapist accounts.
+- `admin-list-users`: returns a limited account directory to platform administrators.
+- `send-appointment-reminders`: sends a minimal reminder email without journal or mood details.
+
+Deploy functions with the Supabase CLI after setting the required secrets described in `docs/DEPLOYMENT.md`. The reminder function must be invoked by a trusted scheduler.
 
 ## Repository structure
 
