@@ -48,8 +48,8 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: fromEmail,
         to: [email],
-        subject: "A gentle reminder from Serene Mind",
-        text: `A reminder that you have an appointment scheduled for ${date}. Sign in to your Serene Mind portal to view your appointment details. This email does not contain private journal or health information.`,
+        subject: "A gentle reminder from Balenza Therapy",
+        text: `A reminder that you have an appointment scheduled for ${date}. Sign in to your Balenza Therapy portal to view your appointment details. This email does not contain private journal or health information.`,
       }),
     });
     if (!response.ok) { failed++; continue; }
