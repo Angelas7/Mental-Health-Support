@@ -1,61 +1,77 @@
-# 🧠 Mental Health Support CLI Application
+# Serene Mind — Mental Health Support
 
-A simple and interactive **C++ command-line app** designed to assist users in tracking their moods, receiving inspirational quotes, and practicing calming activities like **breathing exercises** and **stretching**. Built as a small project to promote mental well-being and self-care habits.
+Serene Mind is a wellbeing website and an in-progress private client portal. The original public-facing experience is in `index.html`; the authenticated portal scaffold is in `portal/`.
 
----
+## Project areas
 
-## 💡 Features
+- **Public website:** existing single-page Serene Mind experience, preserving its original visual identity.
+- **Private portal:** React + Vite application with patient, therapist and administrator interface shells.
+- **Database:** Supabase PostgreSQL migrations with initial row-level security (RLS) policies.
+- **Planning:** product, existing-site audit and architecture documents in `docs/`.
 
-- ✅ Mood tracking with user history
-- ✅ Inspirational quote provider
-- ✅ Breathing & stretching exercises
-- ✅ Simple and interactive CLI
-- ✅ Object-oriented design
+## Run the portal locally
 
----
+Requirements: Node.js 20 or later and npm.
 
-## 🛠️ Tech Stack
+```bash
+cd portal
+npm install
+cp .env.example .env.local
+```
 
-- **Language:** C++
-- **Libraries Used:**
-  - Standard Template Library (`<iostream>`, `<vector>`, `<string>`)
-  - Threading (`<thread>`)
-  - Time delays (`<chrono>`)
+Edit `portal/.env.local` and set:
 
----
+- `VITE_SUPABASE_URL`: your Supabase project URL.
+- `VITE_SUPABASE_ANON_KEY`: your Supabase publishable/anon key.
 
-## 🖥️ How to Run
+Then start the development server:
 
-### ✅ Prerequisites:
-- C++ compiler installed (e.g., `g++`)
-- Terminal or Command Prompt
+```bash
+npm run dev
+```
 
----
+Open the local URL printed by Vite (normally `http://localhost:5173`).
 
-### ⚙️ Steps to Run the Program
+## Database setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Angelas7/Mental-Health-Support.git
-   cd Mental-Health-Support
+In a new Supabase project, review and apply migrations in order:
 
+1. `supabase/migrations/001_initial_schema.sql`
+2. `supabase/migrations/002_patient_consent_and_permissions.sql`
 
+Configure Auth email confirmation and allowed redirect URLs in the Supabase dashboard. Create separate synthetic patient and therapist test accounts. Therapist and platform-admin roles must be assigned through a trusted administrative process; do not expose role changes in client-side registration.
 
-📸 Screenshots
-<img width="1100" height="1013" alt="image" src="https://github.com/user-attachments/assets/e91d470a-1ba2-433c-8a20-2bdee8433e83" />
+## Important security and product status
 
-   🤝 Contributors
-Angela 
-Contributions are welcome! Open a pull request or fork the repo to improve this further.
+**This repository is not production-ready and must not be used for real patient information yet.**
 
+- No Supabase project, production domain, email provider, hosting environment or production secrets are connected.
+- The portal is an initial scaffold; validate all database policies with separate test accounts before relying on them.
+- Never put a Supabase service-role key or email-provider secret in browser code or a `VITE_*` variable.
+- Therapist access is intended to be patient-approved and permission-scoped. Complete and independently test the consent, audit, account recovery, export/deletion, backup and incident-response workflows before launch.
+- Appointment reminder delivery and transactional email are not implemented yet.
+- Review crisis resources with a qualified local professional; this website is not an emergency or crisis service.
+- Obtain appropriate privacy/legal review for the applicable Indian data-protection requirements before processing real patient data.
 
-❤️ Acknowledgements
-This project was created with the intention to provide users a small companion to help check in on themselves emotionally — and remind them to breathe, stretch, and smile 😌✨
+Use synthetic test records only during development.
 
-📜 License
-This project is licensed under the MIT License — feel free to use and adapt it.
+## Repository structure
 
+```
+.
+├── index.html
+├── docs/
+│   ├── PRODUCT_PLAN.md
+│   ├── EXISTING_SITE_AUDIT.md
+│   └── ARCHITECTURE.md
+├── portal/
+│   ├── src/
+│   ├── package.json
+│   └── .env.example
+└── supabase/
+    └── migrations/
+```
 
-👩‍💻 Author
-Made with love by Angela 💙
-Angelas7
+## Development
+
+Work is currently being prepared on `feature/mental-health-portal`. The `main` branch is kept unchanged until the work is reviewed and accepted.
