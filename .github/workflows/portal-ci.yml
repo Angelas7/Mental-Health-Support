@@ -37,3 +37,15 @@ jobs:
         run: npm install
       - name: Build portal
         run: npm run build
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Type-check Supabase Edge Functions
+        working-directory: .
+        run: |
+          deno check supabase/functions/admin-invite-user/index.ts
+          deno check supabase/functions/admin-list-users/index.ts
+          deno check supabase/functions/send-appointment-reminders/index.ts
