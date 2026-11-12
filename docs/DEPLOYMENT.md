@@ -12,7 +12,7 @@ These are the Supabase project URL and public anon/publishable key. Never set a 
 
 Before enabling public traffic:
 1. Use a separate Supabase staging project before testing production changes; the initial Balenza Therapy project is currently the primary backend.
-2. Apply all SQL migrations in order: `001` through `005`.
+2. Apply all SQL migrations in order: `001` through `006`.
 3. Configure Auth email confirmation, allowed site URL and redirect URLs.
 4. Deploy the Edge Functions and set secrets listed below.
 5. Test patient and therapist accounts with synthetic data, including attempts to access another patient's IDs and requests to connect to non-therapist accounts.
