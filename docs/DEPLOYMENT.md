@@ -12,13 +12,14 @@ These are the Supabase project URL and public anon/publishable key. Never set a 
 
 Before enabling public traffic:
 1. Create a separate Supabase project for staging and apply the SQL migrations in order.
-2. Configure Auth email confirmation, allowed site URL and redirect URLs.
-3. Deploy the Edge Functions and set secrets listed below.
-4. Test patient and therapist accounts with synthetic data, including attempts to access another patient's IDs.
-4. Verify that journal and mood access remains blocked until the patient grants the relevant permission.
-5. Add the production domain to Supabase Auth redirect allowlists.
-6. Configure backups, recovery, retention, deletion, monitoring and incident response.
-7. Complete privacy/legal and clinical review before any real patient records are entered.
+2. Apply all SQL migrations in order: `001`, `002`, `003`, then `004`.
+3. Configure Auth email confirmation, allowed site URL and redirect URLs.
+4. Deploy the Edge Functions and set secrets listed below.
+5. Test patient and therapist accounts with synthetic data, including attempts to access another patient's IDs and requests to connect to non-therapist accounts.
+6. Verify that journal and mood access remains blocked until the patient grants the relevant permission.
+7. Add the production domain to Supabase Auth redirect allowlists.
+8. Configure backups, recovery, retention, deletion, monitoring and incident response.
+9. Complete privacy/legal and clinical review before any real patient records are entered.
 
 ## Email and account functions
 
