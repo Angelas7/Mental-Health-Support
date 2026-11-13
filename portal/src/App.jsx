@@ -50,14 +50,16 @@ function AuthScreen({ onBack }) {
       <span className="art-note">one moment at a time</span>
     </div>
     <section className="auth-panel">
-      <div className="auth-card">\n        <button type="button" className="auth-back-link" onClick={onBack}>← Back to Balenza website</button>
+      <div className="auth-card">
+        <button type="button" className="auth-back-link" onClick={onBack}>← Back to Balenza website</button>
         <span className="eyebrow">{mode === "signin" ? "WELCOME BACK" : "A NEW BEGINNING"}</span>
         <h2>{mode === "signin" ? "Your space is here." : "Let's make space."}</h2>
         <p className="muted">{mode === "signin" ? "Sign in to continue your journey." : "Create your private patient account."}</p>
         <form onSubmit={submit} className="auth-form">
           {mode === "signup" && <label>Your name<input value={name} onChange={e=>setName(e.target.value)} autoComplete="name" required /></label>}
           <label>Email address<input type="email" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email" required /></label>
-          <label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={8} required /></label>\n          {mode === "signin" && <label className="remember-email"><input type="checkbox" checked={rememberEmail} onChange={e=>setRememberEmail(e.target.checked)}/> Remember my email on this device</label>}
+          <label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={8} required /></label>
+          {mode === "signin" && <label className="remember-email"><input type="checkbox" checked={rememberEmail} onChange={e=>setRememberEmail(e.target.checked)}/> Remember my email on this device</label>}
           <button className="primary-btn" disabled={busy}>{busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}</button>
         </form>
         {message && <p className="notice" role="status">{message}</p>}
@@ -127,7 +129,8 @@ function PatientHome({ profile, session, onWebsiteClick }) {
   }
   const firstName = profile?.display_name?.split(" ")[0] || "there";
   return <div className="portal-shell">
-    <aside className="sidebar">\n      <button className="back-to-public" onClick={onWebsiteClick}>← Balenza website</button>
+    <aside className="sidebar">
+      <button className="back-to-public" onClick={onWebsiteClick}>← Balenza website</button>
       <a className="brand" href="#"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</a>
       <span className="side-label">YOUR SPACE</span>
       <nav className="side-nav">
@@ -219,7 +222,8 @@ export default function App() {
   const [profile,setProfile]=useState(null);
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState("");
-  const [showAuth,setShowAuth]=useState(false);\n  const [showPortal,setShowPortal]=useState(true);
+  const [showAuth,setShowAuth]=useState(false);
+  const [showPortal,setShowPortal]=useState(true);
   useEffect(()=>{
     if(!hasSupabaseConfig){setLoading(false);return;}
     supabase.auth.getSession().then(({data})=>setSession(data.session));
@@ -237,7 +241,8 @@ export default function App() {
     getProfile();
     return ()=>{live=false;};
   },[session]);
-  if(session && !showPortal)return <MarketingHome onPortalClick={()=>setShowPortal(true)}/>;\n  if(!hasSupabaseConfig && showAuth)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p><button className="primary-btn" onClick={()=>setShowAuth(false)}>Back to website</button></div></div>;
+  if(session && !showPortal)return <MarketingHome onPortalClick={()=>setShowPortal(true)}/>;
+  if(!hasSupabaseConfig && showAuth)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p><button className="primary-btn" onClick={()=>setShowAuth(false)}>Back to website</button></div></div>;
   if(!hasSupabaseConfig)return <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(loading)return <div className="loading-screen">A moment, please…</div>;
   if(!session)return showAuth ? <AuthScreen onBack={()=>setShowAuth(false)}/> : <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
