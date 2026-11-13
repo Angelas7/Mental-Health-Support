@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase, hasSupabaseConfig } from "./lib/supabase.js";
 import { isFutureAppointmentRange } from "./lib/portal-utils.js";
+import MarketingHome from "./MarketingHome.jsx";
 import { BookHeart, CalendarDays, Check, CircleHelp, Heart, Leaf, LogOut, LockKeyhole, Moon, Smile, Sparkles, UserRound } from "lucide-react";
 
 const moods = [
@@ -215,6 +216,7 @@ export default function App() {
   const [profile,setProfile]=useState(null);
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState("");
+  const [showAuth,setShowAuth]=useState(false);
   useEffect(()=>{
     if(!hasSupabaseConfig){setLoading(false);return;}
     supabase.auth.getSession().then(({data})=>setSession(data.session));
@@ -234,7 +236,7 @@ export default function App() {
   },[session]);
   if(!hasSupabaseConfig)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p></div></div>;
   if(loading)return <div className="loading-screen">A moment, please…</div>;
-  if(!session)return <AuthScreen/>;
+  if(!session)return showAuth ? <AuthScreen/> : <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(error)return <div className="loading-screen">{error} <button onClick={()=>supabase.auth.signOut()}>Sign out</button></div>;
   if(profile?.role==="therapist")return <TherapistHome profile={profile}/>;
   if(profile?.role==="platform_admin")return <AdminHome profile={profile}/>;
