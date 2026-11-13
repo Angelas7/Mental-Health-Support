@@ -50,7 +50,7 @@ function AuthScreen({ onBack }) {
       <span className="art-note">one moment at a time</span>
     </div>
     <section className="auth-panel">
-      <div className="auth-card">
+      <div className="auth-card">\n        <button type="button" className="auth-back-link" onClick={onBack}>← Back to Balenza website</button>
         <span className="eyebrow">{mode === "signin" ? "WELCOME BACK" : "A NEW BEGINNING"}</span>
         <h2>{mode === "signin" ? "Your space is here." : "Let's make space."}</h2>
         <p className="muted">{mode === "signin" ? "Sign in to continue your journey." : "Create your private patient account."}</p>
@@ -127,7 +127,7 @@ function PatientHome({ profile, session, onWebsiteClick }) {
   }
   const firstName = profile?.display_name?.split(" ")[0] || "there";
   return <div className="portal-shell">
-    <aside className="sidebar">
+    <aside className="sidebar">\n      <button className="back-to-public" onClick={onWebsiteClick}>← Balenza website</button>
       <a className="brand" href="#"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</a>
       <span className="side-label">YOUR SPACE</span>
       <nav className="side-nav">
