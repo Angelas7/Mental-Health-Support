@@ -84,3 +84,69 @@ button:focus-visible,a:focus-visible{outline:3px solid rgba(71,124,86,.45);outli
 .mk-footer{background:#173a29}
 @media(max-width:850px){.back-to-public{margin:0 0 12px}.sidebar{position:sticky;top:0;z-index:20;box-shadow:0 5px 15px rgba(35,65,42,.07)}.side-nav{scrollbar-width:thin}}
 @media(max-width:520px){.back-to-public{padding:8px 12px;font-size:10px}.emoji-toolbar{gap:4px;padding:10px}.emoji-toolbar button{font-size:19px}.workspace{padding-top:18px}}
+
+
+/* Patient portal: bold editorial identity, deliberately distinct from a generic dashboard */
+.patient-shell{background:#f5f0e6;color:#182b22;grid-template-columns:268px minmax(0,1fr)}
+.patient-shell .sidebar{background:#173d2b;color:#fff7e9;border-right:0;padding:28px 20px}
+.patient-shell .sidebar .brand{color:#fff7e9;font-family:"DM Sans",sans-serif;font-size:19px;font-weight:800;letter-spacing:-.04em;margin:0 0 48px 8px}
+.patient-shell .brand-mark{background:#d9eea9;color:#173d2b;width:36px;height:36px}
+.patient-shell .side-label{color:#b9cbb8;font-size:10px;font-weight:700;letter-spacing:.18em}
+.patient-shell .back-to-public{border-color:#54755f;background:#254c38;color:#fff7e9}
+.patient-shell .back-to-public:hover{background:#38664b}
+.patient-shell .side-nav button{color:#e6ecdf;border-radius:8px;padding:14px 13px;font-weight:600;font-size:13px}
+.patient-shell .side-nav button.active,.patient-shell .side-nav button:hover{background:#d9eea9;color:#173d2b;box-shadow:none}
+.patient-shell .profile-chip{border-color:#496451}
+.patient-shell .profile-chip strong{color:#fff7e9;font-weight:700}
+.patient-shell .profile-chip small,.patient-shell .signout{color:#d2dfd0}
+.patient-shell .avatar{background:#315b43;color:#e5f3d0}
+.patient-shell .workspace{max-width:1450px;padding:36px clamp(22px,4.6vw,68px) 40px}
+.patient-shell .topbar{border-bottom:2px solid #d8d0c1;padding-bottom:22px;margin-bottom:30px}
+.patient-shell .topbar .eyebrow{color:#55705b;font-weight:800}
+.patient-shell .topbar p{font:800 clamp(25px,3vw,36px)/1.1 "DM Sans",sans-serif;letter-spacing:-.055em;color:#182b22}
+.patient-shell .secure-tag{background:#e4eadb;color:#284b35;border-radius:4px;font-weight:700}
+.patient-shell .welcome-card.patient-hero{background:#173d2b;color:#fff7e9;border:0;border-radius:3px;padding:clamp(28px,4.5vw,58px);min-height:360px;display:grid;grid-template-columns:1.2fr .8fr;gap:25px;overflow:hidden;position:relative}
+.patient-shell .patient-hero .eyebrow{color:#d9eea9;font-weight:800;letter-spacing:.17em}
+.patient-shell .hero-kicker{font-size:10px;letter-spacing:.22em;font-weight:800;color:#f4b49a;margin:30px 0 12px}
+.patient-shell .patient-hero h1{font:900 clamp(54px,7vw,88px)/.88 "DM Sans",sans-serif;letter-spacing:-.085em;color:#fff7e9;margin:0 0 22px;max-width:650px}
+.patient-shell .patient-hero h1 em{font-style:normal;color:#d9eea9}
+.patient-shell .hero-description{max-width:430px;color:#e1e9db;font-size:14px;line-height:1.85;margin:0 0 26px}
+.patient-shell .patient-hero .primary-btn{background:#d9eea9;color:#173d2b;border-radius:3px;padding:15px 19px;font-size:12px;font-weight:800;letter-spacing:.01em}
+.patient-shell .patient-hero .primary-btn:hover{background:#fff7e9;color:#173d2b}
+.patient-shell .patient-hero-art{position:relative;min-height:240px;display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(255,247,233,.23);overflow:hidden}
+.patient-shell .hero-art-number{position:absolute;top:0;right:0;color:#d9eea9;font-size:13px;font-weight:800;letter-spacing:.16em}
+.patient-shell .hero-art-word{font-size:clamp(29px,4vw,49px);font-weight:900;line-height:.92;letter-spacing:-.075em;color:#f4b49a;transform:rotate(-7deg);z-index:1}
+.patient-shell .hero-art-orbit{position:absolute;font-size:245px;line-height:1;color:rgba(217,238,169,.14);font-weight:300}
+.patient-shell .hero-art-caption{position:absolute;bottom:0;left:12px;right:0;text-align:center;color:#d9e4d4;font-size:8px;letter-spacing:.16em;font-weight:700}
+.patient-shell .summary-grid{gap:13px;margin:20px 0}
+.patient-shell .summary-card,.patient-shell .content-card{background:#fffdf7;border:1px solid #d8d0c1;border-radius:3px;box-shadow:4px 4px 0 #e5ddcf}
+.patient-shell .summary-card{padding:20px;gap:10px}
+.patient-shell .summary-card small{color:#526b57;font-weight:800;letter-spacing:.12em}
+.patient-shell .summary-card strong{font:900 42px/1 "DM Sans",sans-serif;letter-spacing:-.07em;color:#173d2b}
+.patient-shell .summary-card>span:last-child{color:#657166;font-weight:600}
+.patient-shell .summary-icon{border-radius:3px;background:#e7efdb!important;color:#254b35!important}
+.patient-shell .content-card{padding:25px}
+.patient-shell .content-card h2,.patient-shell .history-list h3{font:800 25px/1.15 "DM Sans",sans-serif;letter-spacing:-.05em;color:#173d2b}
+.patient-shell .quick-links{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.patient-shell .quick-links button{border:1px solid #c9c1b2;border-radius:3px;background:#f5f0e6;color:#213c2b;font-weight:700;min-height:68px}
+.patient-shell .quick-links button:hover{background:#e5efd7;border-color:#65866a}
+.patient-shell .page-card{max-width:980px;padding:clamp(22px,3vw,38px)}
+.patient-shell .page-card h1{font:900 clamp(42px,5vw,62px)/.98 "DM Sans",sans-serif;letter-spacing:-.075em;color:#173d2b}
+.patient-shell .page-card h1 em{font-style:normal;color:#658b50}
+.patient-shell .page-card>.muted{color:#4f5d50;font-size:14px;font-weight:500}
+.patient-shell .field-label,.patient-shell .assign-form label{color:#304b38;font-weight:700}
+.patient-shell .field-label textarea,.patient-shell .assign-form input,.patient-shell .assign-form textarea,.patient-shell .journal-input{background:#fffefa;border:1px solid #bdb6a8;border-radius:3px;color:#182b22;font-size:14px}
+.patient-shell .journal-input{padding:20px;line-height:1.9;min-height:230px}
+.patient-shell .primary-btn{background:#244f36;border-radius:3px;color:#fff;font-weight:800}
+.patient-shell .primary-btn:hover{background:#173d2b}
+.patient-shell .mood-choice{border:1px solid #c9c1b2;background:#fffdf7;color:#304b38;border-radius:3px;font-weight:700}
+.patient-shell .mood-choice.selected{background:#e2edcf;border:2px solid #557c45;color:#173d2b}
+.patient-shell .history-row,.patient-shell .journal-item,.patient-shell .task-item{border-color:#ded6c8;color:#273c2e}
+.patient-shell .history-row small,.patient-shell .journal-item small,.patient-shell .task-item small{color:#58685a}
+.patient-shell .journal-item p,.patient-shell .task-item p{color:#344a39;font-size:14px}
+.patient-shell .empty-state{background:#f1eadc;color:#526253;border-radius:3px}
+.patient-shell .status-banner,.patient-shell .notice{background:#e6efd9;border:1px solid #b7c9a7;color:#244b35;border-radius:3px}
+.patient-shell .small-btn{border-radius:3px;background:#e3edcf;color:#244b35;border-color:#b7c9a7;font-weight:800}
+.patient-shell .portal-footer{color:#667465}
+@media(max-width:900px){.patient-shell{grid-template-columns:220px minmax(0,1fr)}.patient-shell .patient-hero{grid-template-columns:1fr}.patient-shell .patient-hero-art{min-height:180px;border-left:0;border-top:1px solid rgba(255,247,233,.23)}}
+@media(max-width:680px){.patient-shell{display:block}.patient-shell .sidebar{position:relative;height:auto;padding:16px;gap:10px}.patient-shell .sidebar .brand{margin:0 0 10px 5px}.patient-shell .side-label{margin-bottom:3px}.patient-shell .side-nav{display:flex;overflow-x:auto;gap:5px;padding-bottom:5px}.patient-shell .side-nav button{white-space:nowrap;padding:10px;font-size:11px}.patient-shell .sidebar-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px}.patient-shell .profile-chip{border:0;padding:7px 0}.patient-shell .workspace{padding:20px 14px 28px}.patient-shell .welcome-card.patient-hero{padding:25px 21px;min-height:0}.patient-shell .patient-hero h1{font-size:58px}.patient-shell .patient-hero-art{min-height:150px}.patient-shell .summary-grid{grid-template-columns:1fr 1fr}.patient-shell .summary-card:last-child{grid-column:1/-1}.patient-shell .quick-links{grid-template-columns:1fr}.patient-shell .mood-picker{grid-template-columns:repeat(2,1fr)}.patient-shell .page-card{padding:20px 16px}.patient-shell .task-item{align-items:flex-start;flex-direction:column}}
