@@ -12,7 +12,7 @@ const moods = [
   { label: "Great", emoji: "☀️" }
 ];
 
-function AuthScreen() {
+function AuthScreen({ onBack }) {
   const [mode, setMode] = useState("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -234,9 +234,9 @@ export default function App() {
     getProfile();
     return ()=>{live=false;};
   },[session]);
-  if(!hasSupabaseConfig)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p></div></div>;
+  if(!hasSupabaseConfig && showAuth)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p><button className="primary-btn" onClick={()=>setShowAuth(false)}>Back to website</button></div></div>;\n  if(!hasSupabaseConfig)return <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(loading)return <div className="loading-screen">A moment, please…</div>;
-  if(!session)return showAuth ? <AuthScreen/> : <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
+  if(!session)return showAuth ? <AuthScreen onBack={()=>setShowAuth(false)}/> : <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(error)return <div className="loading-screen">{error} <button onClick={()=>supabase.auth.signOut()}>Sign out</button></div>;
   if(profile?.role==="therapist")return <TherapistHome profile={profile}/>;
   if(profile?.role==="platform_admin")return <AdminHome profile={profile}/>;
