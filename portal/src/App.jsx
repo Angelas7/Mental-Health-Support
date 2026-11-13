@@ -57,8 +57,8 @@ function AuthScreen({ onBack }) {
         <p className="muted">{mode === "signin" ? "Sign in to continue your journey." : "Create your private patient account."}</p>
         <form onSubmit={submit} className="auth-form">
           {mode === "signup" && <label>Your name<input value={name} onChange={e=>setName(e.target.value)} autoComplete="name" required /></label>}
-          <label>Email address<input type="email" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email" required /></label>
-          <label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={8} required /></label>
+          <label htmlFor="balenza-auth-email">Email address<input id="balenza-auth-email" name="email" type="email" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="username" inputMode="email" required /></label>
+          <label htmlFor="balenza-auth-password">Password<input id="balenza-auth-password" name="password" type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} minLength={8} required /></label>
           {mode === "signin" && <label className="remember-email"><input type="checkbox" checked={rememberEmail} onChange={e=>setRememberEmail(e.target.checked)}/> Remember my email on this device</label>}
           <button className="primary-btn" disabled={busy}>{busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}</button>
         </form>
