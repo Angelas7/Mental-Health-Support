@@ -128,7 +128,7 @@ function PatientHome({ profile, session, onWebsiteClick }) {
     if (error) setStatus(error.message); else { setStatus("Task marked complete."); load(); }
   }
   const firstName = profile?.display_name?.split(" ")[0] || "there";
-  return <div className="portal-shell">
+  return <div className="portal-shell patient-shell">
     <aside className="sidebar">
       <button className="back-to-public" onClick={onWebsiteClick}>← Balenza website</button>
       <a className="brand" href="#"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</a>
