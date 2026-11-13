@@ -30,11 +30,13 @@ jobs:
           node-version: 20
       - name: Verify database migration files
         run: |
-          for migration in 001_initial_schema.sql 002_patient_consent_and_permissions.sql 003_appointment_permissions.sql 004_validate_therapist_connection_requests.sql; do
+          for migration in 001_initial_schema.sql 002_patient_consent_and_permissions.sql 003_appointment_permissions.sql 004_validate_therapist_connection_requests.sql 005_restrict_function_execution.sql 006_index_homework_therapist.sql 007_disable_appointment_reminders_by_default.sql; do
             test -s "../supabase/migrations/$migration"
           done
       - name: Install dependencies
         run: npm install
+      - name: Run portal unit tests
+        run: npm test
       - name: Build portal
         run: npm run build
 
