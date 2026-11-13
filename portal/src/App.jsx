@@ -234,7 +234,8 @@ export default function App() {
     getProfile();
     return ()=>{live=false;};
   },[session]);
-  if(!hasSupabaseConfig && showAuth)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p><button className="primary-btn" onClick={()=>setShowAuth(false)}>Back to website</button></div></div>;\n  if(!hasSupabaseConfig)return <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
+  if(!hasSupabaseConfig && showAuth)return <div className="setup-screen"><div className="setup-card"><div className="brand"><span className="brand-mark"><Leaf size={18}/></span> Balenza Therapy</div><span className="eyebrow">PORTAL SETUP</span><h1>Your calm space is <em>taking shape.</em></h1><p>The portal interface is ready for local setup. Add your Supabase project URL and publishable/anon key to <code>portal/.env.local</code>, then restart the development server.</p><p className="muted">Never place a service-role key or email-provider secret in this file.</p><button className="primary-btn" onClick={()=>setShowAuth(false)}>Back to website</button></div></div>;
+  if(!hasSupabaseConfig)return <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(loading)return <div className="loading-screen">A moment, please…</div>;
   if(!session)return showAuth ? <AuthScreen onBack={()=>setShowAuth(false)}/> : <MarketingHome onPortalClick={()=>setShowAuth(true)}/>;
   if(error)return <div className="loading-screen">{error} <button onClick={()=>supabase.auth.signOut()}>Sign out</button></div>;
