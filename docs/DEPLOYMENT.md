@@ -39,7 +39,9 @@ Set server-side function secrets in the Supabase project (never in frontend `.en
 - `RESEND_API_KEY` and `REMINDER_FROM_EMAIL` for appointment reminder delivery
 - `REMINDER_CRON_SECRET` for the scheduled reminder endpoint
 
-Both admin Edge Functions enforce exact-origin CORS allowlists in their source files. The current approved origins include the canonical production domain `https://balenza-therapy.vercel.app` and the current feature preview alias. If a Vercel alias changes, update both admin function sources and redeploy them; never use a wildcard origin.\n\nConfigure a trusted scheduler to POST to `send-appointment-reminders` with `Authorization: Bearer <REMINDER_CRON_SECRET>` every 15 minutes. Verify the sender domain with the email provider first. Supabase Auth invitation/confirmation emails also need a production SMTP provider configured in the Auth settings.
+Both admin Edge Functions enforce exact-origin CORS allowlists in their source files. The current approved origins include the canonical production domain `https://balenza-therapy.vercel.app` and the current feature preview alias. If a Vercel alias changes, update both admin function sources and redeploy them; never use a wildcard origin.
+
+Configure a trusted scheduler to POST to `send-appointment-reminders` with `Authorization: Bearer <REMINDER_CRON_SECRET>` every 15 minutes. Verify the sender domain with the email provider first. Supabase Auth invitation/confirmation emails also need a production SMTP provider configured in the Auth settings.
 
 The reminder email contains only the appointment date/time and a sign-in prompt; it does not include journal, mood, diagnosis or homework details. Review time-zone, consent, deliverability and retry behavior before production.
 
