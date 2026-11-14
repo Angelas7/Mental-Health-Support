@@ -1,14 +1,31 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_PORTAL_ORIGIN") ?? "https://your-portal-domain.example",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+const allowedOrigins = new Set([
+  "https://balenza-therapy-git-feature-mental-he-c300b5-angela1475121-7556.vercel.app",
+  "https://balenza-therapy-jzwo6ep30-angela1475121-7556.vercel.app",
+  "https://balenza-therapy.vercel.app",
+]);
+
+function corsHeadersFor(req: Request) {
+  const origin = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": allowedOrigins.has(origin) ? origin : "null",
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  };
+}
 
 Deno.serve(async (req) => {
+  const corsHeaders = corsHeadersFor(req);
+  const origin = req.headers.get("Origin") ?? "";
+  if (!allowedOrigins.has(origin)) {
+    return Response.json({ error: "Origin not allowed" }, { status: 403, headers: corsHeaders });
+  }
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return Response.json({ error: "Method not allowed" }, { status: 405, headers: corsHeaders });
+  if (req.method !== "POST") {
+    return Response.json({ error: "Method not allowed" }, { status: 405, headers: corsHeaders });
+  }
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
@@ -32,7 +49,9 @@ Deno.serve(async (req) => {
   });
 
   const { data: caller, error: authError } = await callerClient.auth.getUser();
-  if (authError || !caller.user) return Response.json({ error: "Invalid session" }, { status: 401, headers: corsHeaders });
+  if (authError || !caller.user) {
+    return Response.json({ error: "Invalid session" }, { status: 401, headers: corsHeaders });
+  }
 
   const { data: profile, error: profileError } = await adminClient
     .from("profiles").select("role").eq("id", caller.user.id).single();
@@ -41,9 +60,12 @@ Deno.serve(async (req) => {
   }
 
   let body: { email?: string; display_name?: string; role?: string };
-  try { body = await req.json(); } catch {
+  try {
+    body = await req.json();
+  } catch {
     return Response.json({ error: "Invalid JSON body" }, { status: 400, headers: corsHeaders });
   }
+
   const email = (body.email ?? "").trim().toLowerCase();
   const displayName = (body.display_name ?? "").trim();
   const role = body.role;
